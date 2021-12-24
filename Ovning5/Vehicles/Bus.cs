@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class Bus : Vehicle, IVehicle
+    internal class Bus : Vehicle
     {
         private int seats;
 
@@ -20,6 +20,6 @@ namespace Ovning5
             set { seats = value; }
         }
 
-        public string PrintDetails() => $"Registration Id: {RegistrationId}, Type: {Type}, Color: {Color}, Make: {Make}, Wheels: {Wheels}, Seats: {Seats}";
+        public override string PrintDetails() => $"Registration Id: {RegistrationId}, Type: {Type}, Color: {Color}, Make: {Make}, Wheels: {Wheels}, Seats: {Seats}";
     }
 }

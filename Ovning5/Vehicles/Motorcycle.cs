@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class Motorcycle : Vehicle, IVehicle
+    internal class Motorcycle : Vehicle
     {
         private int cylinderCount;
 
@@ -20,6 +20,6 @@ namespace Ovning5
             set { cylinderCount = value; }
         }
 
-        public string PrintDetails() => $"Registration Id: {RegistrationId}, Type: {Type}, Color: {Color}, Make: {Make}, Wheels: {Wheels}, Cylinder Count: {CylinderCount}";
+        public override string PrintDetails() => $"Registration Id: {RegistrationId}, Type: {Type}, Color: {Color}, Make: {Make}, Wheels: {Wheels}, Cylinder Count: {CylinderCount}";
     }
 }

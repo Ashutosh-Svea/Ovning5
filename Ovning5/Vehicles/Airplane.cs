@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Ovning5
 {
 
-    internal class Airplane : Vehicle, IVehicle
+    internal class Airplane : Vehicle
     {
         private int length;
 
@@ -21,6 +21,6 @@ namespace Ovning5
             set { length = value; }
         }
 
-        public string PrintDetails() => $"Registration Id: {RegistrationId}, Type: {Type}, Color: {Color}, Make: {Make}, Wheels: {Wheels}, Length: {Length}";
+        public override string PrintDetails() => $"Registration Id: {RegistrationId}, Type: {Type}, Color: {Color}, Make: {Make}, Wheels: {Wheels}, Length: {Length}";
     }
 }

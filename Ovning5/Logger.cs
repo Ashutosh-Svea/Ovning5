@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal interface IVehicle
+    internal static class Logger
     {
-        string PrintDetails();
-
-        void TryPark();
-        void TryFetch();
-
+        public static void log(string log)
+        {
+            Console.WriteLine(log);
+        }
     }
 }

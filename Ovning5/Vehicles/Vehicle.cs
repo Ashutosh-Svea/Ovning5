@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal abstract class Vehicle 
+    internal abstract class Vehicle : IVehicle 
     {
         public Vehicle(string _registrationId, string _type, string _color, string _make, int _wheels)
         {
@@ -16,6 +16,8 @@ namespace Ovning5
             make = _make;
             wheels = _wheels;
         }
+
+        public bool IsParked { get; set; }
 
         private string  registrationId;
 
@@ -57,5 +59,36 @@ namespace Ovning5
             set { wheels = value; }
         }
 
+        public void TryFetch()
+        {
+            if (IsParked is true)
+            {
+                IsParked = false;
+                Logger.log($"{RegistrationId} is fetched!");
+            }
+            else
+            {
+                Logger.log($"{RegistrationId} is not parked so cannot fetch!");
+                throw new Exception($"{RegistrationId} is not parked so cannot fetch!");
+
+            }
+        }
+
+        public void TryPark()
+        {
+            if (IsParked is false)
+            {
+                IsParked = true;
+                Logger.log($"{RegistrationId} is parked!");
+
+            }
+            else
+            {
+                Logger.log($"{RegistrationId} is already parked so cannot park again!");
+                throw new Exception($"{RegistrationId} is already parked so cannot park again!");
+            }
+
+        }
+        public abstract string PrintDetails();
     }
 }

@@ -15,3 +15,15 @@ Console.WriteLine(car.PrintDetails());
 Console.WriteLine(motorcycle.PrintDetails());
 Console.WriteLine(bus.PrintDetails());
 Console.WriteLine(boat.PrintDetails());
+
+
+try
+{
+    boat.TryPark();
+    boat.TryFetch();
+    car.TryFetch();
+}
+catch (Exception e)
+{
+    Logger.log(e.Message);
+}
