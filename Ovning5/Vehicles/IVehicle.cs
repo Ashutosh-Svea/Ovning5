@@ -9,9 +9,7 @@ namespace Ovning5
     internal interface IVehicle
     {
         string PrintDetails();
-
         void TryPark();
         void TryFetch();
-
     }
 }
