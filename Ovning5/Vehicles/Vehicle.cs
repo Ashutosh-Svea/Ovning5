@@ -8,8 +8,9 @@ namespace Ovning5
 {
     internal abstract class Vehicle : IVehicle 
     {
-        public Vehicle(string _registrationId, string _type, string _color, string _make, int _wheels)
+        public Vehicle(ILogger _logger, string _registrationId, string _type, string _color, string _make, int _wheels)
         {
+            logger = _logger;
             registrationId = _registrationId;
             type = _type;
             color = _color;
@@ -20,6 +21,7 @@ namespace Ovning5
         public bool IsParked { get; set; }
 
         private string  registrationId;
+        private ILogger logger;
 
         public string  RegistrationId
         {
@@ -64,13 +66,12 @@ namespace Ovning5
             if (IsParked is true)
             {
                 IsParked = false;
-                Logger.log($"{RegistrationId} is fetched!");
+                logger.log($"{RegistrationId} is fetched!");
             }
             else
             {
-                Logger.log($"{RegistrationId} is not parked so cannot fetch!");
+                logger.log($"{RegistrationId} is not parked so cannot fetch!");
                 throw new Exception($"{RegistrationId} is not parked so cannot fetch!");
-
             }
         }
 
@@ -79,12 +80,12 @@ namespace Ovning5
             if (IsParked is false)
             {
                 IsParked = true;
-                Logger.log($"{RegistrationId} is parked!");
+                logger.log($"{RegistrationId} is parked!");
 
             }
             else
             {
-                Logger.log($"{RegistrationId} is already parked so cannot park again!");
+                logger.log($"{RegistrationId} is already parked so cannot park again!");
                 throw new Exception($"{RegistrationId} is already parked so cannot park again!");
             }
 

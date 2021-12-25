@@ -10,7 +10,7 @@ namespace Ovning5
     {
         private int engine;
 
-        public Car(string id, string type, string color, string make, int wheels, int _engine) : base(id, type, color, make, wheels)
+        public Car(ILogger logger, string id, string type, string color, string make, int wheels, int _engine) : base(logger, id, type, color, make, wheels)
         {
             engine = _engine;
         }

@@ -10,7 +10,7 @@ namespace Ovning5
     {
         private int cylinderCount;
 
-        public Motorcycle(string id, string type, string color, string make, int wheels, int _cylinderCount) : base(id, type, color, make, wheels)
+        public Motorcycle(ILogger logger, string id, string type, string color, string make, int wheels, int _cylinderCount) : base(logger, id, type, color, make, wheels)
         {
             cylinderCount = _cylinderCount;
         }

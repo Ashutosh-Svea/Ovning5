@@ -11,7 +11,7 @@ namespace Ovning5
     {
         private int length;
 
-        public Airplane(string id, string type, string color, string make, int wheels, int _length) : base(id, type, color, make, wheels)
+        public Airplane(ILogger logger, string id, string type, string color, string make, int wheels, int _length) : base(logger, id, type, color, make, wheels)
         {
             length = _length;
         }

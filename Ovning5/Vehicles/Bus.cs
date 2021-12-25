@@ -10,7 +10,7 @@ namespace Ovning5
     {
         private int seats;
 
-        public Bus (string id, string type, string color, string make, int wheels, int _seats) : base(id, type, color, make, wheels)
+        public Bus (ILogger logger, string id, string type, string color, string make, int wheels, int _seats) : base(logger, id, type, color, make, wheels)
         {
             seats = _seats;
         }
