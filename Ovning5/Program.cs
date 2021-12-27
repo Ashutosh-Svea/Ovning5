@@ -4,6 +4,7 @@
 using Microsoft.Extensions.Configuration;
 using Ovning5;
 
+
 ILogger InitLog(IConfiguration config)
 {
     //try to learn the json file reading and dependency injection of logger to all relevant classes
@@ -44,11 +45,15 @@ logger.log(motorcycle.PrintDetails());
 logger.log(bus.PrintDetails());
 logger.log(boat.PrintDetails());
 
-Garage garage = new Garage(logger, "All vehicles Garage", garageCapacity);
+GarageHandler gHandler = new GarageHandler(logger);
+IGarage garage = gHandler.CreateGarage("All vehicles Garage", garageCapacity);
 
 try
 {
-//    garage.Park(boat);
+    garage.Park(boat);
+    garage.Park(bus);
+    garage.Park(airplane);
+    garage.Park(motorcycle);
     garage.Fetch(boat);
     garage.Park(car);
 
@@ -61,5 +66,6 @@ catch (Exception e)
     logger.log(e.Message);
 }
 
+garage.PrintAll();
 
 logger.close();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class Garage : IGarage
+    internal class Garage : IGarage, IEnumerable <Vehicle>
     {
         private ILogger logger;
-        private IVehicle[] vehicleList;
+        private Vehicle[] vehicleList;
 
         public int OccupiedCount { get; set; } = 0;
 
@@ -33,28 +34,31 @@ namespace Ovning5
         {
             GarageName = _name;
             GarageCapacity = _garageCapacity;
-            vehicleList = new IVehicle[garageCapacity];
+            vehicleList = new Vehicle[1];  //just a seed vehicle. As vehicles are added and removed, we shall change...
             logger = _logger;
         }
-        public bool Fetch(IVehicle vehicle)
+        public bool Fetch(Vehicle vehicle)
         {
             try
             {
-                logger.log($"Finding {vehicle.GetRegistrationId()} in Garage {GarageName} ");
+                logger.log($"Finding {vehicle.RegistrationId} in Garage {GarageName} ");
                 vehicle.TryFetch();
+                remove(vehicle); //remove the vehicle in the garage vehicle arrray
+                OccupiedCount--;
                 return true;
+
             }
             catch (Exception e)
             {
-                logger.log($"{vehicle.GetRegistrationId()} is not Available");
+                logger.log($"{vehicle.RegistrationId} is not Available");
                 logger.log(e.Message);
                 return false;
             }
         }
 
-        public void Find()
-        {
-            throw new NotImplementedException();
+        private void remove(Vehicle vehicle)
+        {            
+            vehicleList = vehicleList.Where(v => v is not null && v.RegistrationId != vehicle.RegistrationId).ToArray();
         }
 
         public int FreeParkingSlots()
@@ -67,35 +71,70 @@ namespace Ovning5
             return GarageCapacity == OccupiedCount; 
         }
 
-        public bool IsParked(IVehicle vehicle)
+        public bool IsParked(Vehicle vehicle)
         {
-            throw new NotImplementedException();
+            foreach (Vehicle v in vehicleList)
+            {
+                if (v.RegistrationId == vehicle.RegistrationId)
+                    return true;
+            }
+            return false;
         }
 
-        public IVehicle[] ListAllVehicles()
+        public Vehicle[]? ListAllVehicles()
         {
             return vehicleList;
         }
 
-        public bool Park(IVehicle vehicle)
+        public bool Park(Vehicle vehicle)
         {
             try
             {
-                logger.log($"Parking {vehicle.GetRegistrationId()} in Garage {GarageName} ");
+                logger.log($"Parking {vehicle.RegistrationId} in Garage {GarageName} ");
                 vehicle.TryPark();
+                TryAdd(vehicle); //add the vehicle in the garage vehicle arrray
+                OccupiedCount++;
                 return true;
             }
             catch (Exception e)
             {
-                logger.log($"Unable to park {vehicle.GetRegistrationId()}");
+                logger.log($"Unable to park {vehicle.RegistrationId}");
                 logger.log(e.Message);
                 return false;
             }
         }
 
+        private void TryAdd(Vehicle vehicle)
+        {
+            if (IsFull() is true)
+            {
+                throw (new Exception("Garage already full. Cannot add more vehicles"));
+            }
+            else
+            {
+                //vehicleList = vehicleList.
+                  //  Add(vehicle).ToArray();
+                vehicleList = vehicleList.Append(vehicle).ToArray();
+            }
+        }
+
         public void PrintAll()
         {
-            throw new NotImplementedException();
+            foreach (Vehicle vehicle in vehicleList)
+            {
+                logger.log(vehicle.PrintDetails());
+            }
+        }
+
+        public IEnumerator<Vehicle> GetEnumerator()
+        {
+            foreach (Vehicle vehicle in vehicleList)
+                yield return vehicle;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

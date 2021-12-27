@@ -8,16 +8,15 @@ namespace Ovning5
 {
     internal interface IGarage
     {
-        public void Find();
-        public bool Park(IVehicle vehicle);
+        public bool Park(Vehicle vehicle);
 
-        public bool Fetch(IVehicle vechicle);
+        public bool Fetch(Vehicle vechicle);
 
-        public IVehicle[] ListAllVehicles();
+        public Vehicle[]? ListAllVehicles();
 
         public int FreeParkingSlots();
 
-        public bool IsParked(IVehicle vehicle);
+        public bool IsParked(Vehicle vehicle);
 
         public bool IsFull();
 

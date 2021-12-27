@@ -11,7 +11,5 @@ namespace Ovning5
         string PrintDetails();
         void TryPark();
         void TryFetch();
-        string GetRegistrationId();
-        void SetRegistrationId(string id);
     }
 }
