@@ -91,5 +91,15 @@ namespace Ovning5
 
         }
         public abstract string PrintDetails();
+
+        public string GetRegistrationId()
+        {
+            return RegistrationId;
+        }
+
+        public void SetRegistrationId(string id)
+        {
+            RegistrationId = id;
+        }
     }
 }

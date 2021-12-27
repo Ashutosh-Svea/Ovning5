@@ -4,15 +4,9 @@
 using Microsoft.Extensions.Configuration;
 using Ovning5;
 
-ILogger logger = InitLog();
-
-ILogger InitLog()
+ILogger InitLog(IConfiguration config)
 {
     //try to learn the json file reading and dependency injection of logger to all relevant classes
-    IConfiguration config = new ConfigurationBuilder()
-                        .SetBasePath(Environment.CurrentDirectory)
-                        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                        .Build();
 
     string logFile = config.GetSection("Garage:LogFile").Value;
     
@@ -23,7 +17,21 @@ ILogger InitLog()
     }
 }
 
-//Airplane airplane = new Airplane("XAM931", "SUV", "Silver", "Toyota", 4, 100);
+IConfiguration config = new ConfigurationBuilder()
+                    .SetBasePath(Environment.CurrentDirectory)
+                    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                    .Build();
+
+
+ILogger logger = InitLog(config);
+int garageCapacity = 0;
+
+
+if (int.TryParse(config.GetSection("Garage:GarageCapacity").Value, out garageCapacity) is false)
+{
+    logger.log("Invalid garage capacity");
+}
+    //Airplane airplane = new Airplane("XAM931", "SUV", "Silver", "Toyota", 4, 100);
 Airplane airplane = new Airplane(logger, "SAS1", "Jumbojet", "Silver", "Boeing", 5, 100);
 Motorcycle motorcycle = new Motorcycle (logger, "m1", "Dirtbike", "Silver", "yamaha", 2, 2);
 Car car = new Car (logger, "m1", "Dirtbike", "Silver", "yamaha", 4, 2);
@@ -36,13 +44,17 @@ logger.log(motorcycle.PrintDetails());
 logger.log(bus.PrintDetails());
 logger.log(boat.PrintDetails());
 
-
+Garage garage = new Garage(logger, "All vehicles Garage", garageCapacity);
 
 try
 {
-    boat.TryPark();
-    boat.TryFetch();
-    car.TryFetch();
+//    garage.Park(boat);
+    garage.Fetch(boat);
+    garage.Park(car);
+
+    //boat.TryPark();
+    //boat.TryFetch();
+    //car.TryFetch();
 }
 catch (Exception e)
 {
