@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Ovning5;
 
 namespace Ovning5Test
@@ -29,6 +30,8 @@ namespace Ovning5Test
             garage.Park(motorcycle);
             garage.Park(car);
 
+             
+
         }
 
         [TestCleanup]
@@ -51,8 +54,30 @@ namespace Ovning5Test
         }
 
         [TestMethod]
+        public void FreeParkingSlotTestUsingMock_Valid()
+        {
+            logger = new ConsoleLogger();
+            gHandler = new GarageHandler(logger);
+            gHandler.CreateGarage("All vehicles Garage", 10);
+            garage = gHandler.Garage;
+
+            Airplane airplane = new Airplane(logger, "SAS1", "Jumbojet", "Silver", "Boeing", 5, 100);
+
+            Mock<Garage> mockGarage = new Mock<Garage>();
+            mockGarage.Setup(x => x.FreeParkingSlots()).Returns(5);
+            var handler = new GarageHandler(logger);
+            handler.Garage = mockGarage.Object;
+
+            var expected = 5;
+            var actual = handler.FreeParkingSlotsInGarage();
+
+            Assert.AreEqual(garage!.FreeParkingSlots(), expected);
+        }
+
+        [TestMethod]
         public void FreeParkingSlotTest_Valid()
         {
+ 
             Assert.AreEqual(garage!.FreeParkingSlots(), 5);
         }
 
