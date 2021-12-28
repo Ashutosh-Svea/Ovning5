@@ -9,8 +9,14 @@ namespace Ovning5
     internal class GarageHandler : IHandler
     {
         private ILogger logger;
-        IGarage? garage;
-        
+
+        private IGarage? garage = null;
+
+        public IGarage? Garage
+        {
+            get { return garage; }
+            set { garage = value; }
+        }
 
         public GarageHandler(ILogger _logger)
         {
@@ -74,6 +80,14 @@ namespace Ovning5
         {
             if (garage is not null)
                 garage.PrintAll();
+        }
+
+        public bool IsGarageCreated()
+        {
+            if (Garage is null)
+                return false;
+            else
+                return true;
         }
     }
 }

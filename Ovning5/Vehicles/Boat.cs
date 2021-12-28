@@ -11,7 +11,7 @@ namespace Ovning5
         private string fuelType;
 
         public Boat (ILogger logger, string id, string type, string color, string make, int wheels, string _fuelType) : base(logger, id, type, color, make, wheels)
-        {
+        {   
             fuelType = _fuelType ;
         }
         public string FuelType

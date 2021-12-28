@@ -8,9 +8,11 @@ namespace Ovning5
 {
     internal interface IUI
     {
+        void Run();
         void PrintMainChoices();
-        void PrintGarageChoices();
+        void ProcessGarageChoice();
         void PrintVehicleChoices();
+        //void GetVehicleDetails();
         int GetUserChoice();
     }
 }

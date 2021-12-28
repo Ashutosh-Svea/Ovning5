@@ -27,7 +27,7 @@ IConfiguration config = new ConfigurationBuilder()
 ILogger logger = InitLog(config);
 int garageCapacity = 0;
 
-
+/*
 if (int.TryParse(config.GetSection("Garage:GarageCapacity").Value, out garageCapacity) is false)
 {
     logger.log("Invalid garage capacity");
@@ -46,26 +46,32 @@ logger.log(bus.PrintDetails());
 logger.log(boat.PrintDetails());
 
 GarageHandler gHandler = new GarageHandler(logger);
-IGarage garage = gHandler.CreateGarage("All vehicles Garage", garageCapacity);
+gHandler.CreateGarage("All vehicles Garage", garageCapacity);
+IGarage? garage = gHandler.Garage;
 
-try
+if (garage is not null)
 {
-    garage.Park(boat);
-    garage.Park(bus);
-    garage.Park(airplane);
-    garage.Park(motorcycle);
-    garage.Fetch(boat);
-    garage.Park(car);
+    try
+    {
+        garage.Park(boat);
+        garage.Park(bus);
+        garage.Park(airplane);
+        garage.Park(motorcycle);
+        garage.Fetch(boat);
+        garage.Park(car);
 
-    //boat.TryPark();
-    //boat.TryFetch();
-    //car.TryFetch();
+        //boat.TryPark();
+        //boat.TryFetch();
+        //car.TryFetch();
+    }
+    catch (Exception e)
+    {
+        logger.log(e.Message);
+    }
+
+    garage.PrintAll();
 }
-catch (Exception e)
-{
-    logger.log(e.Message);
-}
-
-garage.PrintAll();
-
+*/
+UIConsole ui = new UIConsole();
+ui.Run();
 logger.close();

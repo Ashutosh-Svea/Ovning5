@@ -8,7 +8,8 @@ namespace Ovning5
 {
     internal interface IHandler
     {
-        public IGarage CreateGarage(string name, int capacity);
+        public bool IsGarageCreated();
+        public void CreateGarage(string name, int capacity);
         public bool ParkInGarage(Vehicle vehicle);
 
         public bool FetchFromGarage(Vehicle vechicle);

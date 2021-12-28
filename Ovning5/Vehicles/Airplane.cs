@@ -22,5 +22,6 @@ namespace Ovning5
         }
 
         public override string PrintDetails() => $"Registration Id: {RegistrationId}, Type: {Type}, Color: {Color}, Make: {Make}, Wheels: {Wheels}, Length: {Length}";
+    
     }
 }
