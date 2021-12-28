@@ -37,23 +37,45 @@ namespace Ovning5
             vehicleList = new Vehicle[1];  //just a seed vehicle. As vehicles are added and removed, we shall change...
             logger = _logger;
         }
-        public bool Fetch(Vehicle vehicle)
+        public bool Fetch(string regId)
         {
             try
             {
-                logger.log($"Finding {vehicle.RegistrationId} in Garage {GarageName} ");
-                vehicle.TryFetch();
-                remove(vehicle); //remove the vehicle in the garage vehicle arrray
-                OccupiedCount--;
-                return true;
+                Vehicle? vehicle = TryFindById(regId);
+                logger.log($"Finding {regId} in Garage {GarageName} ");
+                if (vehicle is not null)
+                {
+                    vehicle.TryFetch();
+                    remove(vehicle); //remove the vehicle in the garage vehicle arrray
+                    OccupiedCount--;
+                    return true;
+                }
+                else
+                {
+                    logger.log("Vehicle not found");
+                    return false;
+                }
 
             }
             catch (Exception e)
             {
-                logger.log($"{vehicle.RegistrationId} is not Available");
+                logger.log($"{regId} is not available in the garage");
                 logger.log(e.Message);
                 return false;
             }
+        }
+
+        private Vehicle? TryFindById(string regId)
+        {
+            foreach (Vehicle v in vehicleList)
+            {
+                if (v is not null)
+                {
+                    if (String.Compare(v.RegistrationId, regId, comparisonType: StringComparison.OrdinalIgnoreCase) == 0)
+                        return v;
+                }
+            }
+            throw (new Exception("Vehicle cannot be found!"));
         }
 
         private void remove(Vehicle vehicle)
@@ -122,7 +144,8 @@ namespace Ovning5
         {
             foreach (Vehicle vehicle in vehicleList)
             {
-                logger.log(vehicle.PrintDetails());
+                if (vehicle is not null) //all empty slots in garage are null perhaps...
+                    logger.log(vehicle.PrintDetails());
             }
         }
 

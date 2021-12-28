@@ -10,7 +10,7 @@ namespace Ovning5
     {
         public bool Park(Vehicle vehicle);
 
-        public bool Fetch(Vehicle vechicle);
+        public bool Fetch(string regId);
 
         public Vehicle[]? ListAllVehicles();
 

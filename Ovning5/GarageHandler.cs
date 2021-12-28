@@ -28,10 +28,10 @@ namespace Ovning5
             garage = new Garage(logger, name, capacity);
         }
 
-        public bool FetchFromGarage(Vehicle vehicle)
+        public bool FetchFromGarage(string regId)
         {
             if (garage is not null)
-                return garage.Fetch(vehicle);
+                return garage.Fetch(regId);
             else
                 return false;
         }

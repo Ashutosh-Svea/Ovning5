@@ -12,7 +12,7 @@ namespace Ovning5
         public void CreateGarage(string name, int capacity);
         public bool ParkInGarage(Vehicle vehicle);
 
-        public bool FetchFromGarage(Vehicle vechicle);
+        public bool FetchFromGarage(string regId);
 
         public Vehicle[]? ListAllVehiclesInGarage();
 

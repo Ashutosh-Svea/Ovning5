@@ -76,7 +76,8 @@ namespace Ovning5
             Console.WriteLine("3.Add Vehicle In The Garage");
             Console.WriteLine("4.Remove Vehicle From The Garage");
             Console.WriteLine("5.Find Vehicle");
-            Console.WriteLine("6.Exit");
+            Console.WriteLine("6.Show all Vehicles in the garage");
+            Console.WriteLine("7.Exit");
         }
 
         public void PrintVehicleChoices()
@@ -148,7 +149,6 @@ namespace Ovning5
                                 break;
                             case 5: AddBus();
                                 break;
-
                             case 6:
                                 runState = RunState.MainMenu;
                                 return;
@@ -504,17 +504,57 @@ namespace Ovning5
                     break;
                 case 4:
                     Console.WriteLine("RemoveVehicle()");
+                    RemoveVehicle();
                     break;
                 case 5:
                     Console.WriteLine("FindVehicle()");
                     break;
                 case 6:
+                    ShowAllVehiclesInTheGarage();
+                    break;
+                case 7:
                     runState = RunState.Exit;
                     break;
                 default:
                     Console.WriteLine("Invalid input try again");
                     break;
             }
+        }
+
+        private void RemoveVehicle()
+        {
+            string? regId;
+            if (garageHandler.IsGarageCreated())
+            {
+                Console.WriteLine("Enter vehicle registration");
+                regId = Console.ReadLine();
+                if (Utils.CheckNullOrEmptyString(regId))
+                {
+                    Console.WriteLine("Invalid registration id. Please try again");
+                }
+                else
+                {
+                    garageHandler.FetchFromGarage(regId!);
+                }
+            }
+            else
+            {
+                Console.WriteLine("No garage created yet. First create garage.");
+            }
+            runState = RunState.MainMenu;
+        }
+
+        private void ShowAllVehiclesInTheGarage()
+        {
+            if (garageHandler.IsGarageCreated())
+            {
+                garageHandler.PrintAllInGarage();
+            }
+            else
+            {
+                Console.WriteLine("No garage created yet. First create garage.");
+            }
+            runState = RunState.MainMenu;
         }
 
         private void CloseGarage()
