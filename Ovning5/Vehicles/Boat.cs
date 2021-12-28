@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class Boat : Vehicle
+    public class Boat : Vehicle
     {
         private string fuelType;
 

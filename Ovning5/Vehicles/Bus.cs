@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class Bus : Vehicle
+    public class Bus : Vehicle
     {
         private int seats;
 

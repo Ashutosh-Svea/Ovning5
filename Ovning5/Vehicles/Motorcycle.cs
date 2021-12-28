@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class Motorcycle : Vehicle
+    public class Motorcycle : Vehicle
     {
         private int cylinderCount;
 

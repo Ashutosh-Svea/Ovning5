@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal interface IHandler
+    public interface IHandler
     {
         public bool IsGarageCreated();
         public void CreateGarage(string name, int capacity);
@@ -14,7 +14,7 @@ namespace Ovning5
 
         public bool FetchFromGarage(string regId);
 
-        public Vehicle[]? ListAllVehiclesInGarage();
+//        public Vehicle[]? ListAllVehiclesInGarage();
 
         public int FreeParkingSlotsInGarage();
 

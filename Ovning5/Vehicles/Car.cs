@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class Car : Vehicle
+    public class Car : Vehicle
     {
         private int engine;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class GarageHandler : IHandler
+    public class GarageHandler : IHandler
     {
         private ILogger logger;
 
@@ -60,13 +60,14 @@ namespace Ovning5
                 return false;
         }
 
-        public Vehicle[]? ListAllVehiclesInGarage()
+/*        public Vehicle[]? ListAllVehiclesInGarage()
         {
             if (garage is not null)
                 return garage.ListAllVehicles();
             else
                 return null;
         }
+*/
 
         public bool ParkInGarage(Vehicle vehicle)
         {

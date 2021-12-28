@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal interface IGarage
+    public interface IGarage
     {
         public bool Park(Vehicle vehicle);
 
         public bool Fetch(string regId);
 
-        public Vehicle[]? ListAllVehicles();
+//        public Vehicle[]? ListAllVehicles();
 
         public int FreeParkingSlots();
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal class Garage : IGarage, IEnumerable <Vehicle>
+    public class Garage : IGarage, IEnumerable <Vehicle>
     {
         private ILogger logger;
         private Vehicle[] vehicleList;
@@ -97,17 +97,17 @@ namespace Ovning5
         {
             foreach (Vehicle v in vehicleList)
             {
-                if (v.RegistrationId == vehicle.RegistrationId)
+                if (v is not null && v.RegistrationId == vehicle.RegistrationId)
                     return true;
             }
             return false;
         }
 
-        public Vehicle[]? ListAllVehicles()
+/*        public Vehicle[]? ListAllVehicles()
         {
             return vehicleList;
         }
-
+*/
         public bool Park(Vehicle vehicle)
         {
             try
@@ -131,6 +131,10 @@ namespace Ovning5
             if (IsFull() is true)
             {
                 throw (new Exception("Garage already full. Cannot add more vehicles"));
+            }
+            else if (IsParked(vehicle))
+            {
+                throw (new Exception($"{vehicle.RegistrationId} is already parked!"));
             }
             else
             {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Ovning5
 {
 
-    internal class Airplane : Vehicle
+    public class Airplane : Vehicle
     {
         private int length;
 

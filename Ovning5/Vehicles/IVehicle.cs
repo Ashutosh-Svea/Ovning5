@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal interface IVehicle
+    public interface IVehicle
     {
         string PrintDetails();
         void TryPark();

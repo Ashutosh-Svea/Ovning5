@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    internal abstract class Vehicle : IVehicle 
+    public abstract class Vehicle : IVehicle 
     {
         public Vehicle(ILogger _logger, string _registrationId, string _type, string _color, string _make, int _wheels)
         {
