@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    public interface IGarage
+    public interface IGarage<T>
     {
-        public bool Park(Vehicle vehicle);
+        public bool Park(T vehicle);
 
         public bool Fetch(string regId);
 
@@ -16,7 +16,7 @@ namespace Ovning5
 
         public int FreeParkingSlots();
 
-        public bool IsParked(Vehicle vehicle);
+        public bool IsParked(T vehicle);
 
         public bool IsFull();
 

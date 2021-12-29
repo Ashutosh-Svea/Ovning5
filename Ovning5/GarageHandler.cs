@@ -10,9 +10,9 @@ namespace Ovning5
     {
         private ILogger logger;
 
-        private IGarage? garage = null;
+        private IGarage<Vehicle>? garage = null;
 
-        public IGarage? Garage
+        public IGarage<Vehicle>? Garage
         {
             get { return garage; }
             set { garage = value; }
@@ -25,7 +25,7 @@ namespace Ovning5
 
         public void CreateGarage(string name, int capacity)
         {
-            garage = new Garage(logger, name, capacity);
+            garage = new Garage<Vehicle>(logger, name, capacity);
         }
 
         public bool FetchFromGarage(string regId)

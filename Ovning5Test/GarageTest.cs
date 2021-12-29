@@ -8,7 +8,7 @@ namespace Ovning5Test
     public class GarageTest
     {
         private GarageHandler? gHandler;
-        private IGarage? garage;
+        private IGarage<Vehicle>? garage;
         private ILogger? logger;
         [TestInitialize]
         public void SetupBeforeEachTest()
@@ -52,7 +52,7 @@ namespace Ovning5Test
             Assert.AreEqual(garage!.Fetch("Sfsf"), false);
 
         }
-
+        
         [TestMethod]
         public void FreeParkingSlotTestUsingMock_Valid()
         {
@@ -63,7 +63,7 @@ namespace Ovning5Test
 
             Airplane airplane = new Airplane(logger, "SAS1", "Jumbojet", "Silver", "Boeing", 5, 100);
 
-            Mock<Garage> mockGarage = new Mock<Garage>();
+            Mock<Garage<Vehicle>> mockGarage = new Mock<Garage<Vehicle>>();
             mockGarage.Setup(x => x.FreeParkingSlots()).Returns(5);
             var handler = new GarageHandler(logger);
             handler.Garage = mockGarage.Object;

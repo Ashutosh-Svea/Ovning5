@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Ovning5
 {
-    public class Garage : IGarage, IEnumerable <Vehicle>
+    public class Garage <T> : IGarage<T>, IEnumerable <T> where T : Vehicle
     {
         private ILogger logger;
-        private Vehicle[] vehicleList;
+        private T[] vehicleList;
 
         public int OccupiedCount { get; set; } = 0;
 
@@ -34,14 +34,14 @@ namespace Ovning5
         {
             GarageName = _name;
             GarageCapacity = _garageCapacity;
-            vehicleList = new Vehicle[1];  //just a seed vehicle. As vehicles are added and removed, we shall change...
+            vehicleList = new T[1];  //just a seed vehicle. As vehicles are added and removed, we shall change...
             logger = _logger;
         }
         public bool Fetch(string regId)
         {
             try
             {
-                Vehicle? vehicle = TryFindById(regId);
+                T? vehicle = TryFindById(regId);
                 logger.log($"Finding {regId} in Garage {GarageName} ");
                 if (vehicle is not null)
                 {
@@ -65,9 +65,9 @@ namespace Ovning5
             }
         }
 
-        private Vehicle? TryFindById(string regId)
+        private T? TryFindById(string regId)
         {
-            foreach (Vehicle v in vehicleList)
+            foreach (T v in vehicleList)
             {
                 if (v is not null)
                 {
@@ -78,7 +78,7 @@ namespace Ovning5
             throw (new Exception("Vehicle cannot be found!"));
         }
 
-        private void remove(Vehicle vehicle)
+        private void remove(T vehicle)
         {            
             vehicleList = vehicleList.Where(v => v is not null && v.RegistrationId != vehicle.RegistrationId).ToArray();
         }
@@ -93,9 +93,9 @@ namespace Ovning5
             return GarageCapacity == OccupiedCount; 
         }
 
-        public bool IsParked(Vehicle vehicle)
+        public bool IsParked(T vehicle)
         {
-            foreach (Vehicle v in vehicleList)
+            foreach (T v in vehicleList)
             {
                 if (v is not null && v.RegistrationId == vehicle.RegistrationId)
                     return true;
@@ -108,7 +108,7 @@ namespace Ovning5
             return vehicleList;
         }
 */
-        public bool Park(Vehicle vehicle)
+        public bool Park(T vehicle)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace Ovning5
             }
         }
 
-        private void TryAdd(Vehicle vehicle)
+        private void TryAdd(T vehicle)
         {
             if (IsFull() is true)
             {
@@ -146,16 +146,16 @@ namespace Ovning5
 
         public void PrintAll()
         {
-            foreach (Vehicle vehicle in vehicleList)
+            foreach (T vehicle in vehicleList)
             {
                 if (vehicle is not null) //all empty slots in garage are null perhaps...
                     logger.log(vehicle.PrintDetails());
             }
         }
 
-        public IEnumerator<Vehicle> GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            foreach (Vehicle vehicle in vehicleList)
+            foreach (T vehicle in vehicleList)
                 yield return vehicle;
         }
 
